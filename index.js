@@ -35,7 +35,10 @@ app.get('/api/hello', function(req, res) {
 
 app.post('/api/shorturl',(req,res)=>{
   let url = req.body.url
-  dns.lookup(url, async (err,address)=>{
+
+  const urlObj = new URL(url)
+  
+  dns.lookup(urlObj.hostname, async (err,address)=>{
     if (err){
       res.json({
         "error":"Invalid URL"
